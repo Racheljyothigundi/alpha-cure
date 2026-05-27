@@ -1,0 +1,23 @@
+{
+  "dataset": "breastmnist",
+  "model_name": "MobileNetV2 (BreastMNIST)",
+  "image_size": 64,
+  "class_names": [
+    "malignant",
+    "normal, benign"
+  ],
+  "source_samples": {
+    "train": 546,
+    "val": 78,
+    "test": 156
+  },
+  "used_samples": {
+    "train": 546,
+    "val": 78,
+    "test": 156
+  },
+  "epochs_requested": 3,
+  "best_val_accuracy": 0.7179487347602844,
+  "best_val_loss": 0.56118243932724,
+  "note": "BreastMNIST is a compact breast ultrasound dataset. This model is appropriate only for breast ultrasound demo screening."
+}

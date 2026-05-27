@@ -1,0 +1,30 @@
+{
+  "dataset": "pathmnist",
+  "model_name": "MobileNetV2 (PathMNIST)",
+  "image_size": 64,
+  "class_names": [
+    "adipose",
+    "background",
+    "debris",
+    "lymphocytes",
+    "mucus",
+    "smooth muscle",
+    "normal colon mucosa",
+    "cancer-associated stroma",
+    "colorectal adenocarcinoma epithelium"
+  ],
+  "source_samples": {
+    "train": 89996,
+    "val": 10004,
+    "test": 7180
+  },
+  "used_samples": {
+    "train": 1000,
+    "val": 200,
+    "test": 7180
+  },
+  "epochs_requested": 3,
+  "best_val_accuracy": 0.6650000214576721,
+  "best_val_loss": 1.041976809501648,
+  "note": "PathMNIST is a colorectal histopathology tile dataset. This model is appropriate only for pathology tile demo screening."
+}

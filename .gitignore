@@ -1,0 +1,57 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+venv/
+backend/venv*/
+.venv/
+*.egg-info/
+dist/
+build/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Models (large files)
+backend/models/*.h5
+backend/models/*.pkl
+backend/models/*.keras
+
+# Uploads / Reports (user data)
+backend/uploads/*
+backend/reports/*
+backend/local_dev_db.json
+!backend/uploads/.gitkeep
+!backend/reports/.gitkeep
+
+# Node
+node_modules/
+frontend/build/
+frontend/.pnp.*
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Research datasets & outputs
+research_datasets/
+research_outputs/
+research_outputs_*/
+
+# Large ML files
+*.keras
+*.h5
+*.npz
+*.xlsx

@@ -1,0 +1,28 @@
+{
+  "dataset": "dermamnist",
+  "model_name": "MobileNetV2 (DermaMNIST)",
+  "image_size": 64,
+  "class_names": [
+    "actinic keratoses and intraepithelial carcinoma",
+    "basal cell carcinoma",
+    "benign keratosis-like lesions",
+    "dermatofibroma",
+    "melanoma",
+    "melanocytic nevi",
+    "vascular lesions"
+  ],
+  "source_samples": {
+    "train": 7007,
+    "val": 1003,
+    "test": 2005
+  },
+  "used_samples": {
+    "train": 1000,
+    "val": 200,
+    "test": 2005
+  },
+  "epochs_requested": 3,
+  "best_val_accuracy": 0.4099999964237213,
+  "best_val_loss": 1.693453311920166,
+  "note": "DermaMNIST is a skin-lesion dataset derived from HAM10000. This model is appropriate only for visible skin-lesion screening demos."
+}
