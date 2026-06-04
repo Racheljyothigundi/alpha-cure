@@ -8,7 +8,6 @@ eventlet.monkey_patch()
 
 from flask import Flask
 from flask_cors import CORS
-from flask_cors import CORS
 from flask_socketio import SocketIO
 from dotenv import load_dotenv
 
@@ -23,29 +22,27 @@ load_dotenv()
 # ─── Initialize Flask ───────────────────────────────────────────────────────────
 app = Flask(__name__)
 
-CORS(
-    app,
-    resources={
-        r"/api/*": {
-            "origins": [
-                "http://localhost:3000",
-                "https://alpha-cure-frontend.vercel.app",
-            ]
-        }
-    },
-    supports_credentials=True,
-)
 app.config['SECRET_KEY'] = os.getenv('JWT_SECRET', 'alpha-cure-secret')
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max upload
 
-# ─── CORS ───────────────────────────────────────────────────────────────────────
-CORS(app, origins=[os.getenv('FRONTEND_URL', 'http://localhost:3000')],
-     supports_credentials=True)
+allowed_origins = [
+    'http://localhost:3000',
+    'https://alpha-cure-frontend.vercel.app',
+]
+frontend_url = os.getenv('FRONTEND_URL')
+if frontend_url and frontend_url not in allowed_origins:
+    allowed_origins.append(frontend_url)
+
+CORS(
+    app,
+    resources={r"/api/*": {"origins": allowed_origins}},
+    supports_credentials=True,
+)
 
 # ─── Socket.IO ─────────────────────────────────────────────────────────────────
 socketio = SocketIO(
     app,
-    cors_allowed_origins=os.getenv('FRONTEND_URL', 'http://localhost:3000'),
+    cors_allowed_origins=allowed_origins,
     async_mode='eventlet',
     logger=False,
     engineio_logger=False
@@ -73,6 +70,23 @@ from services.socket_service import register_socket_events
 register_socket_events(socketio)
 register_error_handlers(app)
 
+_startup_complete = False
+
+
+def initialize_services():
+    global _startup_complete
+
+    if _startup_complete:
+        return
+
+    init_db()
+    load_model()
+    preload_image_models()
+    _startup_complete = True
+
+
+initialize_services()
+
 # ─── Health Check ───────────────────────────────────────────────────────────────
 @app.route('/api/health')
 def health():
@@ -80,8 +94,5 @@ def health():
 
 # ─── Startup ────────────────────────────────────────────────────────────────────
 if __name__ == '__main__':
-    init_db()
-    load_model()
-    preload_image_models()
     print("\n🔬 Alpha-Cure Backend starting on http://localhost:5000\n")
     socketio.run(app, host='0.0.0.0', port=5000, debug=True)
