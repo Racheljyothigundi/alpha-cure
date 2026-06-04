@@ -8,6 +8,7 @@ eventlet.monkey_patch()
 
 from flask import Flask
 from flask_cors import CORS
+from flask_cors import CORS
 from flask_socketio import SocketIO
 from dotenv import load_dotenv
 
@@ -21,6 +22,19 @@ load_dotenv()
 
 # ─── Initialize Flask ───────────────────────────────────────────────────────────
 app = Flask(__name__)
+
+CORS(
+    app,
+    resources={
+        r"/api/*": {
+            "origins": [
+                "http://localhost:3000",
+                "https://alpha-cure-frontend.vercel.app",
+            ]
+        }
+    },
+    supports_credentials=True,
+)
 app.config['SECRET_KEY'] = os.getenv('JWT_SECRET', 'alpha-cure-secret')
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max upload
 
