@@ -7,11 +7,6 @@ from werkzeug.utils import secure_filename
 
 from utils.db import get_db
 from utils.jwt_utils import role_required
-from model_selector import predict
-from services.image_model_service import (
-    list_image_screening_models,
-    predict_uploaded_image,
-)
 
 
 @role_required('patient')
@@ -21,6 +16,8 @@ def predict_cancer():
     Accepts clinical features and returns AI cancer prediction.
     Features match the notebook training data (tabular, not image).
     """
+    from model_selector import load_model, predict
+
     data = request.get_json()
     if not data:
         return jsonify({'error': 'No input data provided'}), 400
@@ -38,6 +35,7 @@ def predict_cancer():
         'diagnosis': float(data.get('diagnosis', 0)),  # 0=No prior, 1=Yes
     }
 
+    load_model()
     result = predict(features)
 
     if not result.get('success'):
@@ -85,6 +83,8 @@ def predict_cancer_image():
     POST /api/predict-image
     Accepts an uploaded image and runs the selected image screening model.
     """
+    from services.image_model_service import predict_uploaded_image
+
     image_file = request.files.get('image')
     if image_file is None:
         return jsonify({'error': 'Please upload an image file.'}), 400
@@ -151,6 +151,8 @@ def predict_cancer_image():
 @role_required('patient')
 def get_image_models():
     """GET /api/image-models - Get available image screening models."""
+    from services.image_model_service import list_image_screening_models
+
     return jsonify({'models': list_image_screening_models()}), 200
 
 

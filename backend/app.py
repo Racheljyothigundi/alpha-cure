@@ -13,8 +13,6 @@ from dotenv import load_dotenv
 
 from utils.db import init_db
 from utils.error_handlers import register_error_handlers
-from model_selector import load_model
-from services.image_model_service import preload_image_models
 
 # ─── Load environment ───────────────────────────────────────────────────────────
 load_dotenv()
@@ -80,8 +78,6 @@ def initialize_services():
         return
 
     init_db()
-    load_model()
-    preload_image_models()
     _startup_complete = True
 
 

@@ -19,6 +19,7 @@ _scaler = None
 _rf_selector = None
 _rf_model = None
 _num_classes = 4
+_load_attempted = False
 
 # Cancer type labels matching the dataset
 CANCER_LABELS = {
@@ -50,7 +51,12 @@ def get_artifacts_path():
 
 def load_model():
     """Load model and preprocessing artifacts. Called once at startup."""
-    global _ann_model, _scaler, _rf_selector, _rf_model
+    global _ann_model, _scaler, _rf_selector, _rf_model, _load_attempted
+
+    if _load_attempted:
+        return
+
+    _load_attempted = True
 
     model_path = get_model_path()
     artifacts_path = get_artifacts_path()
