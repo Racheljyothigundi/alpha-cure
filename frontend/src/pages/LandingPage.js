@@ -92,9 +92,9 @@ export default function LandingPage() {
               <Link to="/signup" className="btn-primary px-7 py-3 text-base">
                 Start Free Screening <ArrowRight className="w-5 h-5" />
               </Link>
-              <Link to="/login" className="btn-secondary px-7 py-3 text-base">
+              <a href="#about" className="btn-secondary px-7 py-3 text-base">
                 Learn More
-              </Link>
+              </a>
             </div>
             <div className="flex items-center gap-6">
               <div className="flex -space-x-2">
@@ -150,9 +150,9 @@ export default function LandingPage() {
                   </div>
                 ))}
 
-                <button className="btn-primary w-full mt-5 justify-center">
-                  <FileText className="w-4 h-4" /> Download Report
-                </button>
+                <Link to="/signup" className="btn-primary w-full mt-5 justify-center">
+                  <FileText className="w-4 h-4" /> Create Your Report
+                </Link>
               </div>
 
               {/* Floating badges */}

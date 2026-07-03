@@ -43,7 +43,9 @@ export default function ReportsPage() {
       const a = document.createElement('a');
       a.href = url;
       a.download = `AlphaCure_Report_${id.slice(0, 8)}.pdf`;
+      document.body.appendChild(a);
       a.click();
+      a.remove();
       window.URL.revokeObjectURL(url);
       toast.success('Report downloaded!');
     } catch {

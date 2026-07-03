@@ -16,6 +16,10 @@ export default function Sidebar({ navItems, role }) {
     navigate('/');
   };
 
+  const handleNotifications = () => {
+    toast('You are all caught up — no new notifications.', { icon: '🔔' });
+  };
+
   const Nav = () => (
     <>
       {/* Logo */}
@@ -77,11 +81,21 @@ export default function Sidebar({ navItems, role }) {
           <span className="font-bold text-slate-900">Alpha<span className="text-primary-600">-Cure</span></span>
         </div>
         <div className="flex items-center gap-3">
-          <button className="relative p-2 rounded-xl hover:bg-slate-100">
+          <button
+            type="button"
+            onClick={handleNotifications}
+            className="relative p-2 rounded-xl hover:bg-slate-100"
+            aria-label="Show notifications"
+          >
             <Bell className="w-5 h-5 text-slate-600" />
-            <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full" />
           </button>
-          <button onClick={() => setOpen(p => !p)} className="p-2 rounded-xl hover:bg-slate-100">
+          <button
+            type="button"
+            onClick={() => setOpen(p => !p)}
+            className="p-2 rounded-xl hover:bg-slate-100"
+            aria-label={open ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-expanded={open}
+          >
             {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>

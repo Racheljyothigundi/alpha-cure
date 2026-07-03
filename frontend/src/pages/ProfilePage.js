@@ -46,10 +46,10 @@ export default function ProfilePage() {
     setSaving(true);
     try {
       await api.put('/user/profile', form);
-      updateUser({ name: form.name, phone: form.phone });
+      updateUser(form);
       toast.success('Profile updated successfully!');
-    } catch {
-      toast.error('Failed to update profile');
+    } catch (err) {
+      toast.error(err.response?.data?.error || 'Failed to update profile');
     } finally {
       setSaving(false);
     }
